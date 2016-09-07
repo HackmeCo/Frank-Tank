@@ -57,7 +57,7 @@ const knex = require('knex')({
     database: 'd924kkqud63c96',
     ssl: true
   }
-});
+}); 
 
 knex.migrate.latest([config]);
 
