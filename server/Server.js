@@ -229,8 +229,10 @@ app.get('/auth/facebook/callback',
                                       failureRedirect: '/login' }));
 app.get('/logout', function(req, res){
   req.logout();
-  req.session.passport.user = null
-  req.session.passport.id = null
+  console.log("KATHRYN LOOK AT ME: ", req.session)
+  req.session.passport.user.name = null
+  req.session.passport.user.id = null
+  
   res.redirect('/');
 });
 /*
@@ -262,6 +264,18 @@ app.get('/currentUser', function(req, res){
   }else{
     res.send('Guest');
   }
+})
+
+/*
+* Sends the user
+*/
+
+app.get('/users/:userid', function(req, res){
+  db.findUser(req.params.userid)
+  .then(function(user){
+    console.log('User returned from get /users/:userid: ', user)
+    res.send(user);
+  })
 })
 
 /*
