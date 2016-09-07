@@ -363,7 +363,7 @@ knex.initDB = () => Promise.all([
     { url: 'FHtvDA0W34I', channel_id: 3 },
   ]),
   knex('likes').insert([
-    { start_time: 43, stop_time: 48, video_id: 1, chan,nel_id: 1 },
+    { start_time: 43, stop_time: 48, video_id: 1, channel_id: 1 },
     { start_time: 74, stop_time: 82, video_id: 1, channel_id: 1 },
     { start_time: 38, stop_time: 42, video_id: 2, channel_id: 1 },
     { start_time: 70, stop_time: 90, video_id: 3, channel_id: 1 },
