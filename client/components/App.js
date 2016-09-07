@@ -25,7 +25,7 @@ export default class App extends React.Component {
       method: 'GET'
     }).then(user => {
       console.log("Got user: ", user);
-      this.setState({user: user.displayName, id: user.id})
+      this.setState({user: user.name, id: user.id})
     })
     .then(x=>{
         NavModel.changeChannel(this.state.channel_id)
@@ -62,7 +62,7 @@ export default class App extends React.Component {
           <div>Current User: {component.state.user}</div>
           <div className="container">
             <div className="row">
-              <h1 className="medium-6 columns">The Toto Moto</h1>
+              <h1 className="medium-6 columns">The Hot Dog Aquarium</h1>
               <div className="medium-6 columns">
                 <NavBar user={component.state.user === "Guest" ? null : component.state.user} changeChannel={(channelId) => this.changeChannel(channelId)} />
               </div>
