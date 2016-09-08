@@ -2,7 +2,6 @@ import React from 'react';
 import YouTube from 'react-youtube';
 import { sendLike, Moment, getMoreVideos } from '../models/videoModel.js';
 import $ from '../models/lib/jquery';
-import { returnAmountOfLikes } from '../models/videoModel';
 
 export default class PlayerWindow extends React.Component {
   constructor(props) {
@@ -19,10 +18,7 @@ export default class PlayerWindow extends React.Component {
       extremeStart: 0,
       extremeStop: 0,
       channel_id: 0,
-      totalLikes: 0
     };
-     
-
 
     // references to dom elements
     this.player = '';
@@ -46,17 +42,29 @@ export default class PlayerWindow extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component mounted');
+
     this.playHead = document.getElementById('playHead');
     this.timeline = document.getElementById('timeline');
     this.controls = document.getElementById('playerControls');
-    
+    // $('.moment').on('click', function(){
+    //   console.log("Clicked moment");
+    //   console.log("What was clicked: ", $(this));
+    //   $(this).css('background-color', '#7eb64a')
+    // })
   }
 
   componentDidUpdate() {
-    var component = this;
+    console.log('component updating');
+    $('.moment').on('click', function(){
+      console.log("Clicked moment");
+      console.log("What was clicked: ", $(this));
+      $(this).css('background-color', '#7eb64a')
+    })
     if (this.props.channel_id !== this.state.channel_id) {
       this.updateVideoList(this.props.videos);
     }
+<<<<<<< 66afbd1bb6ca671a991720e77b37d533ba4a1f10
     // console.log('GAHHHHH', this.state.currentVideo)
     // console.log('I MAKE IT')
     // console.log('returnAmountOfLikes', returnAmountOfLikes);
@@ -71,8 +79,9 @@ export default class PlayerWindow extends React.Component {
       })
     // console.log('WHAT IS GOING ON', this.state.totalLikes)
     // console.log('WHY AARON WHY', this.totalLikes)
+=======
+>>>>>>> rebased for changes
   }
-
 
   // new videos are added if video list reaches a specific length
   checkVideoListLength(list) {
@@ -354,7 +363,6 @@ export default class PlayerWindow extends React.Component {
           <i className="fa fa-thumbs-down" />
           Lame
         </button>
-        <h3 className="totLike">Total Likes: {this.state.totalLikes} </h3>
       </div>;
   }
 
@@ -367,7 +375,7 @@ export default class PlayerWindow extends React.Component {
         </div>
         <section className="player-controls" id="playerControls" onMouseMove={this.handleMouseMove}>
           <div className="timeline" id="timeline">
-            <div id="moments" />
+            <div id="moments" onClick={this.clickLikeForComment}/>
             <div
               className="playHead"
               id="playHead"
