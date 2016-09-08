@@ -63,12 +63,13 @@ export default class PlayerWindow extends React.Component {
     console.log('FUCK AARON ;)', this.state.currentVideo)
     var vidId = this.state.currentVideo.id;
     console.log('VIDID', vidId)
-    this.totalLikes = returnAmountOfLikes(vidId).then(function(){console.log('maybe?')})
-    console.log('DID IT WORK', this.totalLikes);
+    // this.totalLikes = returnAmountOfLikes(vidId)
+    
     if (this.props.channel_id !== this.state.channel_id) {
       this.updateVideoList(this.props.videos);
     }
   }
+
 
   // new videos are added if video list reaches a specific length
   checkVideoListLength(list) {
@@ -350,7 +351,7 @@ export default class PlayerWindow extends React.Component {
           <i className="fa fa-thumbs-down" />
           Lame
         </button>
-        <h3>Total Likes: {this.state.totalLikes}</h3>
+        <h3>Total Likes: {returnAmountOfLikes(this.state.currentVideo.id)}</h3>
       </div>;
   }
 
