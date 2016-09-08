@@ -20,6 +20,8 @@ export default class PlayerWindow extends React.Component {
       extremeStop: 0,
       channel_id: 0,
     };
+     console.log('this.props ', this.currentVideo)
+     console.log('this.props.videos[0]', this.props.videos)
 
     // references to dom elements
     this.player = '';
@@ -58,7 +60,11 @@ export default class PlayerWindow extends React.Component {
 
   componentDidUpdate() {
     console.log('component updating');
-
+    console.log('FUCK AARON ;)', this.state.currentVideo)
+    var vidId = this.state.currentVideo.id;
+    console.log('VIDID', vidId)
+    this.totalLikes = returnAmountOfLikes(vidId).then(function(){console.log('maybe?')})
+    console.log('DID IT WORK', this.totalLikes);
     if (this.props.channel_id !== this.state.channel_id) {
       this.updateVideoList(this.props.videos);
     }
