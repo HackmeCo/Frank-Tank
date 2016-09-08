@@ -2,7 +2,7 @@ import React from 'react';
 import YouTube from 'react-youtube';
 import { sendLike, Moment, getMoreVideos } from '../models/videoModel.js';
 import $ from '../models/lib/jquery';
-import { returnAmountofLikes } from '../models/videoModel';
+import { returnAmountOfLikes } from '../models/videoModel';
 
 export default class PlayerWindow extends React.Component {
   constructor(props) {
