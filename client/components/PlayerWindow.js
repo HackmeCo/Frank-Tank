@@ -50,8 +50,6 @@ export default class PlayerWindow extends React.Component {
     console.log('this.currentVideo', this.videoList)
     console.log('VID ID', videoId);
     console.log('this.state.currentVideo', this.state.videoList)
-    this.totalLikes = returnAmountOfLikes(this.state.currentVideo)
-      .then(function(){console.log('TOTAL LIKES GOT')});
     this.playHead = document.getElementById('playHead');
     this.timeline = document.getElementById('timeline');
     this.controls = document.getElementById('playerControls');
@@ -59,10 +57,10 @@ export default class PlayerWindow extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('component updating');
-    console.log('FUCK AARON ;)', this.state.currentVideo)
-    var vidId = this.state.currentVideo.id;
-    console.log('VIDID', vidId)
+    // console.log('component updating');
+    // console.log('FUCK AARON ;)', this.state.currentVideo)
+    // var vidId = this.state.currentVideo.id;
+    // console.log('VIDID', vidId)
     // this.totalLikes = returnAmountOfLikes(vidId)
     
     if (this.props.channel_id !== this.state.channel_id) {
@@ -351,7 +349,7 @@ export default class PlayerWindow extends React.Component {
           <i className="fa fa-thumbs-down" />
           Lame
         </button>
-        <h3>Total Likes: {returnAmountOfLikes(this.state.currentVideo.id)}</h3>
+        <h3>Total Likes: 7 </h3>
       </div>;
   }
 
