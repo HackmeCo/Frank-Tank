@@ -8,7 +8,7 @@ export default class CommentsArea extends React.Component {
    this.state ={
      comment: "",
      comments: [],
-     input: "",
+     inputz: "",
      commentCounter: 0
    }
  }
@@ -34,7 +34,7 @@ export default class CommentsArea extends React.Component {
  */
  componentDidMount(){
    return $.ajax({
-     url: 'comments/get',
+     url: '/videos/${videoId}/comments/get',
      method: 'GET',
      headers: {
        'Content-Type': 'application/json',
@@ -72,29 +72,27 @@ export default class CommentsArea extends React.Component {
    start time of the like, and end point of the like.
  */
 
- postComment(newComment) {
-  // var newCommentObj = {
-  //   userID:   ,
-  //   comment: newComment,
-  //   likeID:    ,
-  //   likeStart:   ,
-  //   likeEnd:    ,
-  // }
-
+ postComment(newComment, userID, likeID) {
+  console.log('about to use post comment')
+  var newCommentObj = {
+    userID: userID,
+    comment: newComment,
+    likeID: likeID
+  }
    return $.ajax({
-     url: 'comment/create',
+     url: '/videos/${videoId}/comment/create',
      method: 'POST',
      headers: {
        'Content-Type': 'application/json',
      },
      // dataType: 'application/json',
-     data: JSON.stringify(newComment)
+     data: JSON.stringify(newCommentObj)
      
    })
    .then(function(){
     console.log("The comment has been posted to the database: ", data);
     return $.ajax({
-     url: 'comments/get',
+     url: '/videos/${videoId}/comments/get',
      method: 'GET',
      headers: {
        'Content-Type': 'application/json',
@@ -147,9 +145,10 @@ Function upon the click of a likezone that will set the this.state.comment to th
 as well as highlight the zone.  
 */
 
- clickLikeForComment(event){
-   event.currentTarget.style.backgroundColor = '#7eb64a';
- }
+ // clickLikeForComment(event){
+ //   event.currentTarget.style.backgroundColor = '#7eb64a';
+ // }
+ //moved to PlayerWindow.js
 
 
 //onClick={CommentsArea.clickLikeForComment()}
@@ -165,19 +164,19 @@ this.state.comments array.
    return (
      <div>
        <input 
-       class="commentInputs" placeholder="Comment Here!" type="text" 
-       defaultValue={this.state.input} maxlength="144" 
+       className="commentInputs" placeholder="Comment Here!" type="text" 
+       defaultValue={this.state.inputz} maxLength="144" 
        onChange = {e => {
-          this.state.input = e.currentTarget.value;
+          this.state.inputz = e.currentTarget.value;
           this.forceUpdate();
         }}
        />
-       <button class="commentSubmitButton" onClick={postComment(this.state.input)}>Submit!</button>
-       <div class='currentComment'>
+       <button className="commentSubmitButton" onClick={() => this.postComment(this.state.inputz, userID, likeID)}>Submit!</button>
+       <div className='currentComment'>
         {this.state.comment}
        </div>
-       <button class="previousComment" onClick={goToPreviousComment()}>Previous Comment</button>
-       <button class="nextComment" onClick={goToNextComment()}>Next Comment</button>
+       <button className="previousComment" onClick={() => this.goToPreviousComment()}>Previous Comment</button>
+       <button className="nextComment" onClick={() => this.goToNextComment()}>Next Comment</button>
      </div>
    )
  }
