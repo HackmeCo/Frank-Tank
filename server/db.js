@@ -236,6 +236,20 @@ knex.getCommentsByVideo = (videoId) => {
 }
 
 /*
+  ***************************
+  Creates a comment in the db
+  ***************************
+*/
+
+knex.createComment = (commentObj) => {
+  return knex('comments').insert(commentObj)
+  .then(newId => {
+    commentObj.dbId = newId;
+    return commentObj;
+  })
+}
+
+/*
   ***********************************************************************
 
   Return a channel object for the default channel.  All video objects are
