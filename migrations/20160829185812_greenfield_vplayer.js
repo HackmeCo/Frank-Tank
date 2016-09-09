@@ -41,7 +41,7 @@ exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTableIfNotExists('comments', table => {
     table.increments('id');
     table.string('user_id');
-    table.string('likes_id');
+    table.integer('likes_id');
     table.string('text');
   })
 ]);
@@ -54,4 +54,5 @@ exports.down = (knex, Promise) => Promise.all([
   knex.schema.dropTableIfExists('users'),
   knex.schema.dropTableIfExists('channels'),
   knex.schema.dropTableIfExists('following'),
+  knex.schema.dropTableIfExists('comments')
 ]);
