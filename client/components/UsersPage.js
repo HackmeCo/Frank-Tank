@@ -105,6 +105,7 @@ export default class UsersPage extends React.Component {
       
       <div>
         <header>
+      <button onClick={(e) => this.followme()}>follow me</button>
           <div className="container">
             <div className="row">
               <h1 className="medium-6 columns">{this.state.username}</h1>
@@ -117,7 +118,6 @@ export default class UsersPage extends React.Component {
               </div>
             </div>
           </div>
-      <button onClick={(e) => this.followme()}>follow me</button>
         </header>
           <div className="container">
             <div className="row column">
