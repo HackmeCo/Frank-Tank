@@ -229,9 +229,12 @@ knex.getCommentsByLike = (likeId) => {
 knex.getCommentsByVideo = (videoId) => {
   return knex('likes').where('video_id', videoId)
   .then(likes => {
+    console.log("In getCommentsByVideo, likes: ", likes);
     return Promise.all(likes.map(like =>
-      getCommentsByLike(like.id)
+      knex.getCommentsByLike(like.id)
     ))
+    .then(commentsByLike =>
+      commentsByLike.reduce((flattened, byLike) => flattened.concat(byLike), []))
   })
 }
 

@@ -491,7 +491,7 @@ app.get('/comments/get/:videoId', (req, res) => {
 */
 
 app.post('/comments/create', (req, res) => {
-  knex.createComment(req.body)
+  db.createComment(req.body)
   .then(newComment => {
     res.send(newComment);
   })
