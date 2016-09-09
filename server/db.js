@@ -218,6 +218,16 @@ knex.getLikesByChannel = (channelId) => {
 
 knex.getCommentsByLike = (likeId) => {
   return knex('comments').where('like_id', likeId)
+  .then(function(commentsByLike){
+    return Promise.all(commentsByLike.map(comment =>
+      knex('users').where('id', comment.user_id)
+      .then(function(user){
+        console.log("User: ", user);
+        comment.username = user[0].name
+        return comment;
+      })))
+     .then(commsByLike => commsByLike.reduce((flattened, byLike) => flattened.concat(byLike), []))
+  })
 }
 
 /*
