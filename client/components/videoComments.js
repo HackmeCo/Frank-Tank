@@ -34,8 +34,9 @@ export default class CommentsArea extends React.Component {
  this.state.comment the first comment in for that video.
  */
  componentDidMount(){
+  var component = this;
    return $.ajax({
-     url: '/comments/get/' + this.props.videoId,
+     url: '/comments/get/' + component.props.videoId,
      method: 'GET',
      headers: {
        'Content-Type': 'application/json',
@@ -45,14 +46,15 @@ export default class CommentsArea extends React.Component {
    })
    .then(function(data){
      console.log("This comment has been retrieved: ", data);
-     this.state.comment = data[0];
-     this.state.comments = data;
-     this.forceUpdate();
+     component.state.comment = data[0];
+     component.state.comments = data;
+     component.forceUpdate();
    })
    .fail(function(err){
     console.log("Error: ", err);
    })
  }
+
  
  // getComment(videoID, time) {
  //   return $.ajax({
