@@ -91,7 +91,7 @@ export default class CommentsArea extends React.Component {
      headers: {
        'Content-Type': 'application/json',
      },
-     dataType: 'text',
+     dataType: 'json',
      data: JSON.stringify(newCommentObj)
      
    })
@@ -103,14 +103,15 @@ export default class CommentsArea extends React.Component {
      headers: {
        'Content-Type': 'text',
      },
-     dataType: 'text',
+     dataType: 'json',
      //data: JSON.stringify(newLike),
    })
    .then(function(data){
      console.log("This comment has been retrieved: ", data);
      component.state.comment = data[0];
      component.state.comments = data;
-     component.state.input = ""
+     component.state.inputz = "";
+     console.log("The component's comment has been updated to: ", component.state.comment);
      component.forceUpdate();
    })
    .fail(function(err){
@@ -181,9 +182,9 @@ this.state.comments array.
         }}
        />
        <button className="commentSubmitButton" onClick={() => this.postComment(this.state.inputz, this.props.videoId)}>Submit!</button>
-       <div>Comment creator username to be put here</div>
+       <div>{this.state.comment.username}</div>
        <div className='currentComment'>
-        {this.state.comment}
+        {this.state.comment.text}
        </div>
        <button className="previousComment" onClick={() => this.goToPreviousComment()}>Previous Comment</button>
        <button className="nextComment" onClick={() => this.goToNextComment()}>Next Comment</button>
