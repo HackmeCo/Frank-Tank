@@ -118,9 +118,15 @@ knex.getVideosByUser = (userId) =>
     )
     .then( e => e.map(x => {
       let obj = x[0];
-      obj.time_based_likes = [{id: obj.id, start_time : 36, stop_time: 56, users: [userId], video_id: obj.id}];
+      //obj.time_based_likes = [{id: obj.id, start_time : 36, stop_time: 56, users: [userId], video_id: obj.id}];
       return obj;
     }))
+    .then(function(videos){
+      return videos.map(vid => {
+        vid.time_based_likes = likes.filter(lk => lk.video_id === vid.id)
+        return vid;
+      } )
+    })
   })
 
 /*
