@@ -108,7 +108,7 @@ export default class CommentsArea extends React.Component {
    })
    .then(function(data){
      console.log("This comment has been retrieved: ", data);
-     component.state.comment = data[0];
+     if(data.length === 1) component.state.comment = data[0];
      component.state.comments = data;
      component.state.inputz = "";
      console.log("The component's comment has been updated to: ", component.state.comment);
