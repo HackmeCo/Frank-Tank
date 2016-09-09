@@ -35,19 +35,22 @@ export default class CommentsArea extends React.Component {
  */
  componentDidMount(){
    return $.ajax({
-     url: '/comments/get/${videoId}',
+     url: '/comments/get/' + this.props.videoId,
      method: 'GET',
      headers: {
        'Content-Type': 'application/json',
-     }
-     // dataType: 'application/json',
+     }, 
+     dataType: 'text',
      //data: JSON.stringify(newLike),
    })
-   .done(function(data){
+   .then(function(data){
      console.log("This comment has been retrieved: ", data);
      this.state.comment = data.body[0];
      this.state.comments = data.body;
      this.forceUpdate();
+   })
+   .fail(function(err){
+    console.log("Error: ", err);
    })
  }
  
@@ -74,11 +77,12 @@ export default class CommentsArea extends React.Component {
  */
 
  postComment(newComment, likeId) {
+  var component = this;
   console.log('about to use post comment')
   var newCommentObj = {
     user_id: this.props.userId,
     text: newComment,
-    like_id: likeId
+    video_id: this.props.videoId
   }
   console.log("newCommentObj: ", newCommentObj)
    return $.ajax({
@@ -87,27 +91,30 @@ export default class CommentsArea extends React.Component {
      headers: {
        'Content-Type': 'application/json',
      },
-     // dataType: 'application/json',
+     dataType: 'text',
      data: JSON.stringify(newCommentObj)
      
    })
-   .then(function(){
+   .then(function(data){
     console.log("The comment has been posted to the database: ", data);
     return $.ajax({
-     url: '/comments/get/'+this.props.videoId,  // retrieves all comments tied to a particular video
+     url: '/comments/get/'+component.props.videoId,  // retrieves all comments tied to a particular video
      method: 'GET',
      headers: {
-       'Content-Type': 'application/json',
-     }
-     // dataType: 'application/json',
+       'Content-Type': 'text',
+     },
+     dataType: 'text',
      //data: JSON.stringify(newLike),
    })
-   .done(function(data){
+   .then(function(data){
      console.log("This comment has been retrieved: ", data);
-     this.state.comment = data.body[0];
-     this.state.comments = data.body;
-     this.state.input = ""
-     this.forceUpdate();
+     component.state.comment = data[0];
+     component.state.comments = data;
+     component.state.input = ""
+     component.forceUpdate();
+   })
+   .fail(function(err){
+      console.log("Error fetching comments: ", err);
    })
   })
 }
@@ -173,7 +180,7 @@ this.state.comments array.
           this.forceUpdate();
         }}
        />
-       <button className="commentSubmitButton" onClick={() => this.postComment(this.state.inputz, likeID)}>Submit!</button>
+       <button className="commentSubmitButton" onClick={() => this.postComment(this.state.inputz, this.props.videoId)}>Submit!</button>
        <div>Comment creator username to be put here</div>
        <div className='currentComment'>
         {this.state.comment}
