@@ -40,13 +40,13 @@ export default class CommentsArea extends React.Component {
      headers: {
        'Content-Type': 'application/json',
      }, 
-     dataType: 'text',
+     dataType: 'json',
      //data: JSON.stringify(newLike),
    })
    .then(function(data){
      console.log("This comment has been retrieved: ", data);
-     this.state.comment = data.body[0];
-     this.state.comments = data.body;
+     this.state.comment = data[0];
+     this.state.comments = data;
      this.forceUpdate();
    })
    .fail(function(err){
@@ -131,6 +131,7 @@ that like zone's comment.
  goToPreviousComment(){
 
    this.state.commentCounter--;
+   if(this.state.commentCounter < 0){this.state.commentCounter += this.state.comments.length;}
    this.state.comment = this.state.comments[this.state.commentCounter];
    //need to update the current comment's moment class div color to something other than yellow
    // or "background: rgba(255, 209, 0, 0.5);" as is the current norm.
@@ -144,6 +145,7 @@ that like zone's comment.
 
  goToNextComment(){
    this.state.commentCounter++;
+   this.state.commentCounter = this.state.commentCounter % this.state.comments.length;
    this.state.comment = this.state.comments[this.state.commentCounter];
    //need to update the current comment's moment class div color to something other than yellow
    // or "background: rgba(255, 209, 0, 0.5);" as is the current norm.
