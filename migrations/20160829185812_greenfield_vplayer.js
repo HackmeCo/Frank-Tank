@@ -38,6 +38,12 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('user_id_follower');
     table.string('user_id_followee');
   }),
+  knex.schema.createTableIfNotExists('comments', table => {
+    table.increments('id');
+    table.string('user_id');
+    table.string('likes_id');
+    table.string('text');
+  })
 ]);
 
 exports.down = (knex, Promise) => Promise.all([
